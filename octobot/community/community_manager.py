@@ -35,6 +35,7 @@ import octobot_trading.api as trading_api
 
 import octobot.community.community_fields as community_fields
 import octobot.constants as constants
+from security import safe_requests
 
 
 class CommunityManager:
@@ -103,7 +104,7 @@ class CommunityManager:
 
     def _blocking_get_id_and_register(self):
         try:
-            resp = requests.get(f"{common_constants.METRICS_URL}{common_constants.METRICS_ROUTE_GEN_BOT_ID}",
+            resp = safe_requests.get(f"{common_constants.METRICS_URL}{common_constants.METRICS_ROUTE_GEN_BOT_ID}",
                                 headers=self._headers)
             text = resp.text
             if resp.status_code != 200:
