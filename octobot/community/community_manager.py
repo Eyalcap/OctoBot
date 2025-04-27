@@ -104,7 +104,7 @@ class CommunityManager:
     def _blocking_get_id_and_register(self):
         try:
             resp = requests.get(f"{common_constants.METRICS_URL}{common_constants.METRICS_ROUTE_GEN_BOT_ID}",
-                                headers=self._headers)
+                                headers=self._headers, timeout=60)
             text = resp.text
             if resp.status_code != 200:
                 self.logger.debug(f"Impossible to get bot id: status code: {resp.status_code}, text: {text}")
@@ -113,7 +113,7 @@ class CommunityManager:
                 self._save_bot_id()
                 community = self._get_bot_community()
                 requests.post(f"{common_constants.METRICS_URL}{common_constants.METRICS_ROUTE_REGISTER}",
-                              json=community, headers=self._headers)
+                              json=community, headers=self._headers, timeout=60)
         except Exception as e:
             self.logger.debug(f"Error when handling community: {e}")
 
