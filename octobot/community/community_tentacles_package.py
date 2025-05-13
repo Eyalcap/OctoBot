@@ -17,6 +17,7 @@ import typing
 import packaging.version
 
 import octobot.constants as constants
+import secrets
 
 
 class CommunityTentaclesPackage:
@@ -56,6 +57,4 @@ class CommunityTentaclesPackage:
         return None
 
     def is_installed(self):
-        #TODO tmp
-        import random
-        return random.choice((True, False))
+        return secrets.choice((True, False))
