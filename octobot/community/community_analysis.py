@@ -15,7 +15,6 @@
 #  License along with OctoBot. If not, see <https://www.gnu.org/licenses/>.
 import asyncio
 import aiohttp
-import requests
 import enum
 from datetime import datetime, timedelta
 
@@ -23,6 +22,7 @@ import octobot_commons.logging as logging
 import octobot_commons.constants as constants
 
 import octobot.community.community_fields as community_fields
+from security import safe_requests
 
 
 async def get_current_octobots_stats():
@@ -56,7 +56,7 @@ async def get_current_octobots_stats():
 def get_community_metrics():
     logger = logging.get_logger("CommunityAnalysis")
     try:
-        resp = requests.get(f"{constants.METRICS_URL}{constants.METRICS_ROUTE_COMMUNITY}")
+        resp = safe_requests.get(f"{constants.METRICS_URL}{constants.METRICS_ROUTE_COMMUNITY}")
         if resp.status_code != 200:
             logger.error(f"Error when getting community data : error code={resp.status_code}")
         else:
