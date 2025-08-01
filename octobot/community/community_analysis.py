@@ -56,7 +56,7 @@ async def get_current_octobots_stats():
 def get_community_metrics():
     logger = logging.get_logger("CommunityAnalysis")
     try:
-        resp = requests.get(f"{constants.METRICS_URL}{constants.METRICS_ROUTE_COMMUNITY}")
+        resp = requests.get(f"{constants.METRICS_URL}{constants.METRICS_ROUTE_COMMUNITY}", timeout=60)
         if resp.status_code != 200:
             logger.error(f"Error when getting community data : error code={resp.status_code}")
         else:

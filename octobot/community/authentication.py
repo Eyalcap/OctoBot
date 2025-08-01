@@ -82,7 +82,7 @@ class CommunityAuthentication(authentication.Authenticator):
             "password": password,
             "grant_type": "password",
         }
-        resp = requests.post(self.authentication_url, params=params)
+        resp = requests.post(self.authentication_url, params=params, timeout=60)
         try:
             self._handle_auth_result(resp.status_code, resp.json())
         except json.JSONDecodeError as e:
@@ -218,7 +218,7 @@ class CommunityAuthentication(authentication.Authenticator):
 
     def _refresh_auth(self):
         with self._auth_context() as params:
-            resp = requests.post(self.authentication_url, params=params)
+            resp = requests.post(self.authentication_url, params=params, timeout=60)
             self._handle_auth_result(resp.status_code, resp.json())
 
     async def _async_refresh_auth(self):
